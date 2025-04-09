@@ -1,52 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My School Progress Blog</title>
+  <link rel="stylesheet" href="blog.css">
 </head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <h1>My School Progress Blog</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#posts">Posts</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<meta charset="utf-8">
-<link rel="stylesheet" href="/blog.css">
-<div class="header">
-    <h2>Blog Name</h2>
-  </div>
-  
-  <div class="row">
-    <div class="leftcolumn">
-      <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-      </div>
-      <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Sep 2, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-      </div>
-    </div>
-    <div class="rightcolumn">
-      <div class="card">
+  <!-- Main Content Area -->
+  <div class="container content-container">
+    <main class="main-content" id="posts">
+      <!-- Post Card 1 -->
+      <article class="card">
+        <h2>Project Update: Level Design</h2>
+        <small>Posted on March 15, 2025</small>
+        <div class="image-container">
+          <img src="level-design.jpg" alt="Level Design Image">
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ligula nec nulla commodo aliquam...</p>
+        <button class="read-more">Read More</button>
+      </article>
+      <!-- Post Card 2 -->
+      <article class="card">
+        <h2>Thoughts on Modern Game Design</h2>
+        <small>Posted on February 28, 2025</small>
+        <div class="image-container">
+          <img src="game-design.jpg" alt="Game Design Discussion Image">
+        </div>
+        <p>Phasellus eget orci nec quam gravida convallis. Sed bibendum eros ac orci efficitur, a gravida urna vehicula...</p>
+        <button class="read-more">Read More</button>
+      </article>
+    </main>
+
+    <!-- Aside Content -->
+    <aside class="sidebar">
+      <!-- About Me -->
+      <section id="about" class="card">
         <h2>About Me</h2>
-        <div class="fakeimg" style="height:100px;">Harrison Parrish</div>
-        <p>Currently I am a student at Digipen Institute of Technology pursuing a Computer Science and Game Design degree.</p>
-      </div>
-      <div class="card">
-        <h3>Previous Projects</h3>
-        <div class="fakeimg">Image</div><br>
-        <div class="fakeimg">Image</div><br>
-        <div class="fakeimg">Image</div>
-      </div>
-      <div class="card">
-        <h3>Contact Me</h3>
-        <p>harrisondparrish@gmail.com</p>
-      </div>
-    </div>
+        <div class="avatar">
+          <img src="avatar.jpg" alt="Harrison Parrish">
+        </div>
+        <p>Hi! I’m Harrison Parrish, a student at DigiPen Institute of Technology pursuing a degree in Computer Science and Game Design. I love blending creativity with technology.</p>
+      </section>
+      <!-- Previous Projects -->
+      <section id="projects" class="card">
+        <h2>Previous Projects</h2>
+        <div class="project-thumbnails">
+          <img src="project1.jpg" alt="Project 1">
+          <img src="project2.jpg" alt="Project 2">
+          <img src="project3.jpg" alt="Project 3">
+        </div>
+      </section>
+      <!-- Contact -->
+      <section id="contact" class="card">
+        <h2>Contact Me</h2>
+        <p>Email: <a href="mailto:harrisondparrish@gmail.com">harrisondparrish@gmail.com</a></p>
+      </section>
+    </aside>
   </div>
-  
-  <div class="footer">
-    <h2>Footer</h2>
-  </div> 
-  </html> chris is CRINGE
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Harrison Parrish. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Go to top">&#8679;</button>
+
+  <script src="blog.js"></script>
+</body>
+</html>
