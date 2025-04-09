@@ -20,7 +20,7 @@
     padding: 20px;
   }
   
-  /* Header styles */
+  /* Header styles with purple accent */
   .header {
     background: #ffffff;
     border-bottom: 2px solid #eaeaea;
@@ -35,7 +35,7 @@
   
   .header h1 {
     font-size: 2.5rem;
-    color: #333;
+    color: #6A0DAD; /* Purple accent */
   }
   
   nav {
@@ -50,13 +50,13 @@
   
   .nav-list li a {
     text-decoration: none;
-    color: #007acc;
+    color: #6A0DAD; /* Purple accent */
     font-weight: bold;
     transition: color 0.3s ease;
   }
   
   .nav-list li a:hover {
-    color: #005e99;
+    color: #4b0071;
   }
   
   /* Layout for main and sidebar */
@@ -80,8 +80,7 @@
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
   }
   
@@ -112,9 +111,36 @@
     border-radius: 3px;
   }
   
+  /* Form styling for Newsletter */
+  #newsletterForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #newsletterForm input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  
+  #newsletterForm button {
+    background: #6A0DAD; /* Purple accent */
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  #newsletterForm button:hover {
+    background: #4b0071;
+  }
+  
   /* Read More button */
   .read-more {
-    background: #007acc;
+    background: #6A0DAD;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -124,7 +150,7 @@
   }
   
   .read-more:hover {
-    background: #005e99;
+    background: #4b0071;
   }
   
   /* Footer styling */
@@ -145,7 +171,7 @@
     z-index: 100;
     border: none;
     outline: none;
-    background: #007acc;
+    background: #6A0DAD;
     color: white;
     cursor: pointer;
     padding: 15px;
@@ -155,13 +181,27 @@
   }
   
   #backToTop:hover {
-    background: #005e99;
+    background: #4b0071;
   }
   
-  /* Responsive adjustments */
-  @media (max-width: 800px) {
-    .content-container {
-      flex-direction: column;
-    }
+  /* Modal styling */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
   }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity
   

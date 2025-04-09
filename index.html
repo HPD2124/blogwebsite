@@ -16,6 +16,7 @@
           <li><a href="#posts">Posts</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -25,29 +26,29 @@
   <!-- Main Content Area -->
   <div class="container content-container">
     <main class="main-content" id="posts">
-      <!-- Post Card 1 -->
+      <!-- Featured Post with Modal trigger -->
       <article class="card">
-        <h2>Project Update: Level Design</h2>
+        <h2>Featured Project: Interactive Game Prototype</h2>
         <small>Posted on March 15, 2025</small>
         <div class="image-container">
-          <img src="level-design.jpg" alt="Level Design Image">
+          <img src="featured.jpg" alt="Featured Project">
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ligula nec nulla commodo aliquam...</p>
-        <button class="read-more">Read More</button>
+        <p>This interactive game prototype leverages cutting-edge animation and physics to deliver an immersive experience. Click below for detailed insights.</p>
+        <button class="read-more" data-modal-target="#modal1">Read More</button>
       </article>
-      <!-- Post Card 2 -->
+      <!-- Post Card -->
       <article class="card">
-        <h2>Thoughts on Modern Game Design</h2>
+        <h2>Reflections on Game Design Trends</h2>
         <small>Posted on February 28, 2025</small>
         <div class="image-container">
-          <img src="game-design.jpg" alt="Game Design Discussion Image">
+          <img src="trends.jpg" alt="Game Design Trends">
         </div>
-        <p>Phasellus eget orci nec quam gravida convallis. Sed bibendum eros ac orci efficitur, a gravida urna vehicula...</p>
-        <button class="read-more">Read More</button>
+        <p>Exploring modern game design trends and the impact of technology on gameplay, this post dives into how creative minds are shaping the future of interactive entertainment.</p>
+        <button class="read-more" data-modal-target="#modal2">Read More</button>
       </article>
     </main>
 
-    <!-- Aside Content -->
+    <!-- Sidebar -->
     <aside class="sidebar">
       <!-- About Me -->
       <section id="about" class="card">
@@ -55,7 +56,7 @@
         <div class="avatar">
           <img src="avatar.jpg" alt="Harrison Parrish">
         </div>
-        <p>Hi! I’m Harrison Parrish, a student at DigiPen Institute of Technology pursuing a degree in Computer Science and Game Design. I love blending creativity with technology.</p>
+        <p>Hello, I'm Harrison Parrish. I'm a student at DigiPen Institute of Technology studying Computer Science and Game Design. I blend creativity with technology to build interactive experiences.</p>
       </section>
       <!-- Previous Projects -->
       <section id="projects" class="card">
@@ -65,6 +66,15 @@
           <img src="project2.jpg" alt="Project 2">
           <img src="project3.jpg" alt="Project 3">
         </div>
+      </section>
+      <!-- Newsletter Subscription -->
+      <section id="newsletter" class="card">
+        <h2>Newsletter</h2>
+        <p>Stay updated with my latest projects and blog posts.</p>
+        <form id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
       </section>
       <!-- Contact -->
       <section id="contact" class="card">
@@ -77,7 +87,27 @@
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Harrison Parrish. All rights reserved.</p>
+    <div id="currentTime"></div>
   </footer>
+
+  <!-- Modals -->
+  <div class="modal" id="modal1">
+    <div class="modal-content">
+      <span class="close-button" data-close-button>&times;</span>
+      <h2>Interactive Game Prototype</h2>
+      <p>Detailed project description and technical insights go here. Learn about the design challenges, innovative solutions, and creative inspiration behind this project.</p>
+    </div>
+  </div>
+  <div class="modal" id="modal2">
+    <div class="modal-content">
+      <span class="close-button" data-close-button>&times;</span>
+      <h2>Game Design Trends</h2>
+      <p>In-depth discussion about the latest trends in game design. Explore how emerging technologies and creative strategies are redefining the gaming landscape.</p>
+    </div>
+  </div>
+
+  <!-- Overlay for modals -->
+  <div id="overlay"></div>
 
   <!-- Back to Top Button -->
   <button id="backToTop" title="Go to top">&#8679;</button>
