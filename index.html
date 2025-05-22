@@ -14,9 +14,7 @@
       <nav>
         <ul class="nav-list">
           <li><a href="#posts">Posts</a></li>
-          <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -87,14 +85,6 @@ EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
 
     <!-- Sidebar -->
     <aside class="sidebar">
-      <!-- About Me -->
-      <section id="about" class="card">
-        <h2>About Me</h2>
-        <div class="avatar">
-          <img src="avatar.jpg" alt="Harrison Parrish">
-        </div>
-        <p>Hello, I'm Harrison Parrish. I'm a student at DigiPen Institute of Technology studying Computer Science and Game Design. I blend creativity with technology to build interactive experiences.</p>
-      </section>
       <!-- Previous Projects -->
       <section id="projects" class="card">
         <h2>Previous Projects</h2>
@@ -104,15 +94,6 @@ EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
           <img src="project3.jpg" alt="Project 3">
         </div>
       </section>
-      <!-- Newsletter Subscription -->
-      <section id="newsletter" class="card">
-        <h2>Newsletter</h2>
-        <p>Stay updated with my latest projects and blog posts.</p>
-        <form id="newsletterForm">
-          <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
-          <button type="submit">Subscribe</button>
-        </form>
-      </section>
       <!-- Contact -->
       <section id="contact" class="card">
         <h2>Contact Me</h2>
@@ -121,6 +102,15 @@ EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
     </aside>
   </div>
 
+  <!-- About Me Section -->
+  <section id="about" class="container about-section">
+    <h2>About Me</h2>
+    <div class="avatar">
+      <img src="avatar.jpg" alt="Harrison Parrish">
+    </div>
+    <p>Hello, I'm Harrison Parrish. I'm a student at DigiPen Institute of Technology studying Computer Science and Game Design. I blend creativity with technology to build interactive experiences.</p>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Harrison Parrish. All rights reserved.</p>
@@ -128,96 +118,10 @@ EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
   </footer>
 
   <!-- Modals -->
-  <div class="modal" id="modal1">
-    <div class="modal-content">
-      <span class="close-button" data-close-button>&times;</span>
-      <h2>Interactive Game Prototype</h2>
-      <p>Detailed project description and technical insights go here. Learn about the design challenges, innovative solutions, and creative inspiration behind this project.</p>
-    </div>
-  </div>
-  <div class="modal" id="modal2">
-    <div class="modal-content">
-      <span class="close-button" data-close-button>&times;</span>
-      <h2>Game Design Trends</h2>
-      <p>In-depth discussion about the latest trends in game design. Explore how emerging technologies and creative strategies are redefining the gaming landscape.</p>
-    </div>
-  </div>
-  <!-- A* Modal -->
-  <div class="modal" id="modalAStar">
-    <div class="modal-content">
-      <span class="close-button" data-close-button>&times;</span>
-      <h2>Implementing A* Pathfinding</h2>
-      <p>I faced several challenges: ensuring my heuristic was admissible, handling map boundaries, and reconstructing the path efficiently. After adding detailed logging, I found bugs in my neighbor generation that skipped diagonal walls.</p>
-      <pre><code class="language-cpp">// Full A* implementation (see Pathfinding.h for definitions)
-std::vector<Vector2D> AStar(const Vector2D& start, const Vector2D& goal, const std::vector<std::vector<int>>& grid) {
-    std::priority_queue<Node, std::vector<Node>, std::greater<>> open;
-    std::unordered_map<int, int> gScore;
-    std::unordered_map<int, Vector2D> cameFrom;
-
-    int startKey = start.y * 1000 + start.x;
-    gScore[startKey] = 0;
-    open.push({ start, 0, Heuristic(start, goal) });
-
-    while (!open.empty()) {
-        Node current = open.top(); open.pop();
-        if (current.pos.x == goal.x && current.pos.y == goal.y)
-            return ReconstructPath(cameFrom, current.pos);
-
-        for (auto& neighbor : GetNeighbors(current.pos, grid)) {
-            int key = neighbor.y * 1000 + neighbor.x;
-            int tentativeG = gScore[current.pos.y * 1000 + current.pos.x] + 1;
-            if (!gScore.contains(key) || tentativeG < gScore[key]) {
-                gScore[key] = tentativeG;
-                cameFrom[key] = current.pos;
-                int f = tentativeG + Heuristic(neighbor, goal);
-                open.push({ neighbor, tentativeG, f });
-            }
-        }
-    }
-    return {};
-}</code></pre>
-    </div>
-  </div>
-  <!-- Bullet Factory Modal -->
-  <div class="modal" id="modalBullet">
-    <div class="modal-content">
-      <span class="close-button" data-close-button>&times;</span>
-      <h2>Building the Enemy Bullet Factory</h2>
-      <p>Memory leaks and null-pointer checks were my biggest headaches. I added early returns and asserts to catch failures in <code>EntityFactoryBuild</code>. Getting the quad mesh size right took tweaking constants until bullets appeared at the correct scale.</p>
-      <pre><code class="language-c">// EnemyBulletFactory.c full snippet
-#define BULLET_COLLIDER_RADIUS 5.0f
-#define BULLET_MESH_WIDTH      0.2f
-#define BULLET_MESH_HEIGHT     0.2f
-
-Enemy* EnemyBulletFactoryBuild(void) {
-    Enemy* enemyBullet = calloc(1, sizeof(Enemy));
-    if (!enemyBullet) return NULL;
-    enemyBullet->entity = EntityFactoryBuild("./Data/EnemyBullet.txt");
-    if (!enemyBullet->entity) { free(enemyBullet); return NULL; }
-
-    Physics* physics = PhysicsCreate();
-    if (physics) { EntityAddPhysics(enemyBullet->entity, physics); }
-
-    Transform* t = EntityGetTransform(enemyBullet->entity);
-    if (t) {
-        CircleCollider* c = CircleColliderCreate(TransformGetTranslation(t), BULLET_COLLIDER_RADIUS, CIRCLE, BLOCK, "Enemy_Bullet");
-        EntityAddCircleCollider(enemyBullet->entity, c);
-    }
-
-    Mesh* mesh = MeshCreate();
-    if (mesh) {
-        MeshBuildQuad(mesh, BULLET_MESH_WIDTH, BULLET_MESH_HEIGHT, 1.0f, 1.0f, "EnemyBulletMesh");
-        Sprite* sprite = EntityGetSprite(enemyBullet->entity);
-        if (sprite) {
-            SpriteSetMesh(sprite, mesh);
-            SpriteSource* src = SpriteSourceCreate();
-            if (src) { SpriteSourceLoadTexture(src, 1, 1, "Enemy_Bullet.png"); SpriteSetSpriteSource(sprite, src); }
-        }
-    }
-    return enemyBullet;
-}</code></pre>
-    </div>
-  </div>
+  <div class="modal" id="modal1"> ... </div>
+  <div class="modal" id="modal2"> ... </div>
+  <div class="modal" id="modalAStar"> ... </div>
+  <div class="modal" id="modalBullet"> ... </div>
 
   <!-- Overlay for modals -->
   <div id="overlay"></div>
