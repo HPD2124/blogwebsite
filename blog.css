@@ -164,8 +164,8 @@ nav {
   margin-bottom: 15px;
 }
 .small-image {
-  max-width: 100px; 
-  width: 100%;
+  max-width: 30px; 
+  width: 30%;
   height: auto;
   display: block;
   margin: 0 auto; 
