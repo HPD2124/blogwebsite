@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My School Progress Blog</title>
+  <title>My School Progress Journal</title>
   <link rel="stylesheet" href="blog.css">
 </head>
 <body>
   <!-- Header -->
   <header class="header">
     <div class="container header-container">
-      <h1>My School Progress Blog</h1>
+      <h1>My School Progress Journal</h1>
       <nav>
         <ul class="nav-list">
           <li><a href="#posts">Posts</a></li>
@@ -26,7 +26,7 @@
   <!-- Main Content Area -->
   <div class="container content-container">
     <main class="main-content" id="posts">
-      <!-- Featured Post with Modal trigger -->
+      <!-- Existing Posts -->
       <article class="card">
         <h2>Featured Project: Interactive Game Prototype</h2>
         <small>Posted on March 15, 2025</small>
@@ -36,7 +36,6 @@
         <p>This interactive game prototype leverages cutting-edge animation and physics to deliver an immersive experience. Click below for detailed insights.</p>
         <button class="read-more" data-modal-target="#modal1">Read More</button>
       </article>
-      <!-- Post Card -->
       <article class="card">
         <h2>Reflections on Game Design Trends</h2>
         <small>Posted on February 28, 2025</small>
@@ -45,6 +44,44 @@
         </div>
         <p>Exploring modern game design trends and the impact of technology on gameplay, this post dives into how creative minds are shaping the future of interactive entertainment.</p>
         <button class="read-more" data-modal-target="#modal2">Read More</button>
+      </article>
+
+      <!-- New Post: A* Pathfinding -->
+      <article class="card">
+        <h2>Implementing A* Pathfinding</h2>
+        <small>Posted on May 21, 2025</small>
+        <p>I dove into implementing A* pathfinding for my grid-based stealth game. I struggled with choosing an efficient key for map storage (ended up using <code>y * 1000 + x</code>), and debugging edge cases where walls blocked my open list. Below is a snippet of the core algorithm:</p>
+        <pre><code class="language-cpp">// Core A* loop
+std::priority_queue<Node, std::vector<Node>, std::greater<>> open;
+std::unordered_map<int, int> gScore;
+std::unordered_map<int, Vector2D> cameFrom;
+
+int startKey = start.y * 1000 + start.x;
+gScore[startKey] = 0;
+open.push({ start, 0, Heuristic(start, goal) });
+
+while (!open.empty()) {
+    Node current = open.top(); open.pop();
+    if (current.pos == goal)  // reached target
+        return ReconstructPath(cameFrom, current.pos);
+    // ...
+}</code></pre>
+        <button class="read-more" data-modal-target="#modalAStar">Read More</button>
+      </article>
+
+      <!-- New Post: Enemy Bullet Factory -->
+      <article class="card">
+        <h2>Building the Enemy Bullet Factory</h2>
+        <small>Posted on May 18, 2025</small>
+        <p>This entry covers creating an <code>EnemyBulletFactory</code> in C. I wrestled with correct memory management and integrating the physics and collider systems. Getting the sprite and mesh hooked up took several rounds of testing. Example snippet:</p>
+        <pre><code class="language-c">// Create physics and collider
+Physics* physics = PhysicsCreate();
+if (physics) EntityAddPhysics(enemyBullet->entity, physics);
+
+Transform* t = EntityGetTransform(enemyBullet->entity);
+CircleCollider* c = CircleColliderCreate(TransformGetTranslation(t), BULLET_COLLIDER_RADIUS, CIRCLE, BLOCK, "Enemy_Bullet");
+EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
+        <button class="read-more" data-modal-target="#modalBullet">Read More</button>
       </article>
     </main>
 
@@ -103,6 +140,82 @@
       <span class="close-button" data-close-button>&times;</span>
       <h2>Game Design Trends</h2>
       <p>In-depth discussion about the latest trends in game design. Explore how emerging technologies and creative strategies are redefining the gaming landscape.</p>
+    </div>
+  </div>
+  <!-- A* Modal -->
+  <div class="modal" id="modalAStar">
+    <div class="modal-content">
+      <span class="close-button" data-close-button>&times;</span>
+      <h2>Implementing A* Pathfinding</h2>
+      <p>I faced several challenges: ensuring my heuristic was admissible, handling map boundaries, and reconstructing the path efficiently. After adding detailed logging, I found bugs in my neighbor generation that skipped diagonal walls.</p>
+      <pre><code class="language-cpp">// Full A* implementation (see Pathfinding.h for definitions)
+std::vector<Vector2D> AStar(const Vector2D& start, const Vector2D& goal, const std::vector<std::vector<int>>& grid) {
+    std::priority_queue<Node, std::vector<Node>, std::greater<>> open;
+    std::unordered_map<int, int> gScore;
+    std::unordered_map<int, Vector2D> cameFrom;
+
+    int startKey = start.y * 1000 + start.x;
+    gScore[startKey] = 0;
+    open.push({ start, 0, Heuristic(start, goal) });
+
+    while (!open.empty()) {
+        Node current = open.top(); open.pop();
+        if (current.pos.x == goal.x && current.pos.y == goal.y)
+            return ReconstructPath(cameFrom, current.pos);
+
+        for (auto& neighbor : GetNeighbors(current.pos, grid)) {
+            int key = neighbor.y * 1000 + neighbor.x;
+            int tentativeG = gScore[current.pos.y * 1000 + current.pos.x] + 1;
+            if (!gScore.contains(key) || tentativeG < gScore[key]) {
+                gScore[key] = tentativeG;
+                cameFrom[key] = current.pos;
+                int f = tentativeG + Heuristic(neighbor, goal);
+                open.push({ neighbor, tentativeG, f });
+            }
+        }
+    }
+    return {};
+}</code></pre>
+    </div>
+  </div>
+  <!-- Bullet Factory Modal -->
+  <div class="modal" id="modalBullet">
+    <div class="modal-content">
+      <span class="close-button" data-close-button>&times;</span>
+      <h2>Building the Enemy Bullet Factory</h2>
+      <p>Memory leaks and null-pointer checks were my biggest headaches. I added early returns and asserts to catch failures in <code>EntityFactoryBuild</code>. Getting the quad mesh size right took tweaking constants until bullets appeared at the correct scale.</p>
+      <pre><code class="language-c">// EnemyBulletFactory.c full snippet
+#define BULLET_COLLIDER_RADIUS 5.0f
+#define BULLET_MESH_WIDTH      0.2f
+#define BULLET_MESH_HEIGHT     0.2f
+
+Enemy* EnemyBulletFactoryBuild(void) {
+    Enemy* enemyBullet = calloc(1, sizeof(Enemy));
+    if (!enemyBullet) return NULL;
+    enemyBullet->entity = EntityFactoryBuild("./Data/EnemyBullet.txt");
+    if (!enemyBullet->entity) { free(enemyBullet); return NULL; }
+
+    Physics* physics = PhysicsCreate();
+    if (physics) { EntityAddPhysics(enemyBullet->entity, physics); }
+
+    Transform* t = EntityGetTransform(enemyBullet->entity);
+    if (t) {
+        CircleCollider* c = CircleColliderCreate(TransformGetTranslation(t), BULLET_COLLIDER_RADIUS, CIRCLE, BLOCK, "Enemy_Bullet");
+        EntityAddCircleCollider(enemyBullet->entity, c);
+    }
+
+    Mesh* mesh = MeshCreate();
+    if (mesh) {
+        MeshBuildQuad(mesh, BULLET_MESH_WIDTH, BULLET_MESH_HEIGHT, 1.0f, 1.0f, "EnemyBulletMesh");
+        Sprite* sprite = EntityGetSprite(enemyBullet->entity);
+        if (sprite) {
+            SpriteSetMesh(sprite, mesh);
+            SpriteSource* src = SpriteSourceCreate();
+            if (src) { SpriteSourceLoadTexture(src, 1, 1, "Enemy_Bullet.png"); SpriteSetSpriteSource(sprite, src); }
+        }
+    }
+    return enemyBullet;
+}</code></pre>
     </div>
   </div>
 
