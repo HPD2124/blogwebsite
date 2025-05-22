@@ -2,132 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My School Progress Journal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Website</title>
   <link rel="stylesheet" href="blog.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="container header-container">
-      <h1>My School Progress Journal</h1>
+      <h1>Welcome to My Personal Blog</h1>
       <nav>
         <ul class="nav-list">
-          <li><a href="#posts">Posts</a></li>
+          <li><a href="#">Home</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About Me</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Main Content Area -->
-  <div class="container content-container">
-    <main class="main-content" id="posts">
-      <!-- Existing Posts -->
-      <article class="card">
-        <h2>Featured Project: Interactive Game Prototype</h2>
-        <small>Posted on March 15, 2025</small>
-        <div class="image-container">
-          <img src="featured.jpg" alt="Featured Project">
-        </div>
-        <p>This interactive game prototype leverages cutting-edge animation and physics to deliver an immersive experience. Click below for detailed insights.</p>
-        <button class="read-more" data-modal-target="#modal1">Read More</button>
-      </article>
-      <article class="card">
-        <h2>Reflections on Game Design Trends</h2>
-        <small>Posted on February 28, 2025</small>
-        <div class="image-container">
-          <img src="trends.jpg" alt="Game Design Trends">
-        </div>
-        <p>Exploring modern game design trends and the impact of technology on gameplay, this post dives into how creative minds are shaping the future of interactive entertainment.</p>
-        <button class="read-more" data-modal-target="#modal2">Read More</button>
-      </article>
-
-      <!-- New Post: A* Pathfinding -->
-      <article class="card">
-        <h2>Implementing A* Pathfinding</h2>
-        <small>Posted on May 21, 2025</small>
-        <p>I dove into implementing A* pathfinding for my grid-based stealth game. I struggled with choosing an efficient key for map storage (ended up using <code>y * 1000 + x</code>), and debugging edge cases where walls blocked my open list. Below is a snippet of the core algorithm:</p>
-        <pre><code class="language-cpp">// Core A* loop
-std::priority_queue<Node, std::vector<Node>, std::greater<>> open;
-std::unordered_map<int, int> gScore;
-std::unordered_map<int, Vector2D> cameFrom;
-
-int startKey = start.y * 1000 + start.x;
-gScore[startKey] = 0;
-open.push({ start, 0, Heuristic(start, goal) });
-
-while (!open.empty()) {
-    Node current = open.top(); open.pop();
-    if (current.pos == goal)  // reached target
-        return ReconstructPath(cameFrom, current.pos);
-    // ...
-}</code></pre>
-        <button class="read-more" data-modal-target="#modalAStar">Read More</button>
-      </article>
-
-      <!-- New Post: Enemy Bullet Factory -->
-      <article class="card">
-        <h2>Building the Enemy Bullet Factory</h2>
-        <small>Posted on May 18, 2025</small>
-        <p>This entry covers creating an <code>EnemyBulletFactory</code> in C. I wrestled with correct memory management and integrating the physics and collider systems. Getting the sprite and mesh hooked up took several rounds of testing. Example snippet:</p>
-        <pre><code class="language-c">// Create physics and collider
-Physics* physics = PhysicsCreate();
-if (physics) EntityAddPhysics(enemyBullet->entity, physics);
-
-Transform* t = EntityGetTransform(enemyBullet->entity);
-CircleCollider* c = CircleColliderCreate(TransformGetTranslation(t), BULLET_COLLIDER_RADIUS, CIRCLE, BLOCK, "Enemy_Bullet");
-EntityAddCircleCollider(enemyBullet->entity, c);</code></pre>
-        <button class="read-more" data-modal-target="#modalBullet">Read More</button>
-      </article>
-    </main>
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <!-- Previous Projects -->
-      <section id="projects" class="card">
-        <h2>Previous Projects</h2>
-        <div class="project-thumbnails">
-          <img src="project1.jpg" alt="Project 1">
-          <img src="project2.jpg" alt="Project 2">
-          <img src="project3.jpg" alt="Project 3">
+  <main class="container">
+    <div class="content-container">
+      <section class="main-content">
+        <div class="card">
+          <h2>Latest Blog Post</h2>
+          <p>This is an exciting introduction to my latest post. Click below to read more!</p>
+          <div class="image-container">
+            <img src="images/post-image.jpg" alt="Blog Post Thumbnail">
+          </div>
+          <button class="read-more" data-modal-target="#modal1">Read More</button>
         </div>
       </section>
-      <!-- Contact -->
-      <section id="contact" class="card">
-        <h2>Contact Me</h2>
-        <p>Email: <a href="mailto:harrisondparrish@gmail.com">harrisondparrish@gmail.com</a></p>
-      </section>
-    </aside>
-  </div>
-
-  <!-- About Me Section -->
-  <section id="about" class="container about-section">
-    <h2>About Me</h2>
-    <div class="avatar">
-      <img src="avatar.jpg" alt="Harrison Parrish">
     </div>
-    <p>Hello, I'm Harrison Parrish. I'm a student at DigiPen Institute of Technology studying Computer Science and Game Design. I blend creativity with technology to build interactive experiences.</p>
-  </section>
 
-  <!-- Footer -->
+    <!-- Full-width About Me Section -->
+    <section class="card about-section" id="about">
+      <h2>About Me</h2>
+      <div class="avatar">
+        <img src="images/avatar.jpg" alt="My Avatar">
+      </div>
+      <p>Hello! I'm a passionate developer, currently studying computer science with a focus on game AI and stealth mechanics. I'm also a filmmaker at heart. Stay tuned for my creations!</p>
+    </section>
+  </main>
+
   <footer class="footer">
-    <p>&copy; 2025 Harrison Parrish. All rights reserved.</p>
-    <div id="currentTime"></div>
+    <p>© 2025 My Personal Blog</p>
+    <p>Current time: <span id="currentTime"></span></p>
   </footer>
 
-  <!-- Modals -->
-  <div class="modal" id="modal1"> ... </div>
-  <div class="modal" id="modal2"> ... </div>
-  <div class="modal" id="modalAStar"> ... </div>
-  <div class="modal" id="modalBullet"> ... </div>
+  <button id="backToTop" title="Back to top">↑</button>
 
-  <!-- Overlay for modals -->
+  <div id="modal1" class="modal">
+    <h2>Blog Post Detail</h2>
+    <p>This is the full version of the blog post. More details, images, and insights go here.</p>
+    <button data-close-button>Close</button>
+  </div>
   <div id="overlay"></div>
-
-  <!-- Back to Top Button -->
-  <button id="backToTop" title="Go to top">&#8679;</button>
 
   <script src="blog.js"></script>
 </body>
